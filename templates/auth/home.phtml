@@ -1,0 +1,142 @@
+<?php require_once __DIR__.'/../inc/head.phtml'; ?>
+    <script type="text/javascript">
+        var fileobj;
+        function upload_file(e) {
+            e.preventDefault();
+            fileobj = e.dataTransfer.files[0];
+            ajax_file_upload(fileobj);
+        }
+
+        function file_explorer() {
+            document.getElementById('selectfile').click();
+            document.getElementById('selectfile').onchange = function() {
+                fileobj = document.getElementById('selectfile').files[0];
+                ajax_file_upload(fileobj);
+            };
+        }
+
+        function ajax_file_upload(file_obj) {
+            if(file_obj != undefined) {
+                var form_data = new FormData();
+                form_data.append('file', file_obj);
+                $.ajax({
+                    type: 'POST',
+                    url: 'ajax.php',
+                    contentType: false,
+                    processData: false,
+                    data: form_data,
+                    success:function(response) {
+                        alert(response);
+                        $('#selectfile').val('');
+                    }
+                });
+            }
+        }
+    </script>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">CDN Dev-PHP</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="http://blog.dev-php.site">Blog</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="http://portfolio.dev-php.site">Portfolio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://github.com/dreboard">Github</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+
+      <div class="row">
+
+        <!-- Blog Entries Column -->
+        <div class="col-md-8">
+
+          <h1 class="my-4">Dev-PHP
+            <small>CDN Home</small>
+          </h1>
+
+          <!-- Blog Post -->
+          <div class="card mb-4">
+            <div class="card-body">
+              <h2 class="card-title">Scripts and Image Site</h2>
+              <p class="card-text">The passcode form takes you into the upload center.
+                <?php if (isset($name)) : ?>
+              <h2>Hello <?= htmlspecialchars($name); ?>!</h2>
+              <?php else: ?>
+              <p>Try <a href="http://www.slimframework.com">SlimFramework</a></p>
+              <?php endif; ?>
+
+                <?php
+                if (APPLICATION_ENV === 'development') {
+                    try {
+                        $con = ftp_connect($_ENV['FTP_SERVER']);
+                        if (false === $con) {
+                            throw new Exception('Unable to connect');
+                        }
+
+                        $loggedIn = ftp_login($con,  $_ENV['FTP_USER'], $_ENV['FTP_PASS']);
+                        ftp_pasv($con, true);
+                        if (true === $loggedIn) {
+                            echo 'Success!';
+                        } else {
+                            throw new Exception('Unable to log in');
+                        }
+
+                        print_r(ftp_nlist($con, "."));
+                        ftp_close($con);
+                    } catch (Exception $e) {
+                        echo "Failure: " . $e->getMessage();
+                    }
+
+                } else {
+                    $dir    = __DIR__.'/../../js/';
+                    $files1 = scandir($dir, SCANDIR_SORT_ASCENDING);
+                    //$files2 = scandir($dir, 1);
+                    //print_r($files1);
+                    //print_r($files2);
+                }
+                //$dir    = './js';
+                //$files1 = scandir($dir, SCANDIR_SORT_ASCENDING);
+                //print_r($files1);
+                ?>
+
+                <p><a href="https://github.com/dreboard" class="btn btn-primary">See Code &rarr;</a></p>
+
+            </div>
+            <div class="card-footer text-muted">
+              Updated on January 1, 2017 by
+              <a href="#">Dev-PHP</a>
+            </div>
+          </div>
+
+
+        </div>
+
+        <!-- Sidebar Widgets Column -->
+        <?php require_once __DIR__.'/../inc/side_auth.phtml'; ?>
+
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+<?php require_once __DIR__.'/../inc/foot.phtml'; ?>
