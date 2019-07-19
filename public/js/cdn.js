@@ -21,7 +21,7 @@ function ajax_file_upload(file_obj) {
         form_data.append('file', file_obj);
         $.ajax({
             type: 'POST',
-            url: 'ajax.php',
+            url: '/save',
             contentType: false,
             processData: false,
             data: form_data,

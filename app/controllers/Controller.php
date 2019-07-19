@@ -21,6 +21,8 @@ class Controller
     {
         if($this->container->{$property}){
             return $this->container->{$property};
+        } else {
+            throw new \Exception('No Property');
         }
     }
 

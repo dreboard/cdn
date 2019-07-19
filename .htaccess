@@ -1,9 +1,15 @@
 RewriteEngine on
 
-RewriteCond %{HTTP_HOST} ^cdn.dev-php.site$ [NC,OR]
-RewriteCond %{HTTP_HOST} ^www.cdn.dev-php.site$
+#RewriteCond %{HTTP_HOST} ^cdn.dev-php.site$ [NC,OR]
+#RewriteCond %{HTTP_HOST} ^www.cdn.dev-php.site$
+#RewriteCond %{REQUEST_URI} !public/
+#RewriteRule (.*) /public/$1 [L]
+
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^http://localhost/_dev-php/cdn-home/ [NC,OR]
+RewriteCond %{HTTP_HOST} ^http://localhost/_dev-php/cdn-home/$
 RewriteCond %{REQUEST_URI} !public/
-RewriteRule (.*) /public/$1 [L]
+RewriteRule (.*) /folder/$1 [L]
 
 RewriteCond %{HTTP_REFERER} !^$
 RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?api.dev-php.site [NC]

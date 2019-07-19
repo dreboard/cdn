@@ -1,31 +1,6 @@
 <?php require_once __DIR__.'/../inc/head.phtml'; ?>
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <div class="container">
-        <a class="navbar-brand" href="#">CDN Dev-PHP</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Home
-                <span class="sr-only">(current)</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="http://blog.dev-php.site">Blog</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="http://portfolio.dev-php.site">Portfolio</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="https://github.com/dreboard">Github</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <?php require_once __DIR__.'/../inc/nav_auth.phtml'; ?>
 
     <!-- Page Content -->
     <div class="container">
@@ -49,40 +24,39 @@
               <?php else: ?>
               <p>Try <a href="http://www.slimframework.com">SlimFramework</a></p>
               <?php endif; ?>
-
-                <?php
-                if (APPLICATION_ENV === 'development') {
-                    try {
-                        $con = ftp_connect($_ENV['FTP_SERVER']);
-                        if (false === $con) {
-                            throw new Exception('Unable to connect');
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col"></th>
+                        <th scope="col">Last</th>
+                        <th scope="col">Handle</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    if (APPLICATION_ENV === 'development') {
+                        try {
+                            $dir    = __DIR__.'/../../public/files/';
+                            $iterator = new FilesystemIterator($dir);
+                            $filelist = array();
+                            foreach($iterator as $entry) {
+                                echo '<tr>
+                                          <th scope="row">'.$entry->getFilename().'</th>
+                                          <td>Mark</td>
+                                          <td>Otto</td>
+                                          <td>@mdo</td>
+                                       </tr>
+                                    ';
+                            }
+                        } catch (Exception $e) {
+                            echo "Failure: " . $e->getMessage();
                         }
-
-                        $loggedIn = ftp_login($con,  $_ENV['FTP_USER'], $_ENV['FTP_PASS']);
-                        ftp_pasv($con, true);
-                        if (true === $loggedIn) {
-                            echo 'Success!';
-                        } else {
-                            throw new Exception('Unable to log in');
-                        }
-
-                        print_r(ftp_nlist($con, "."));
-                        ftp_close($con);
-                    } catch (Exception $e) {
-                        echo "Failure: " . $e->getMessage();
                     }
+                    ?>
+                    </tbody>
+                </table>
 
-                } else {
-                    $dir    = __DIR__.'/../../js/';
-                    $files1 = scandir($dir, SCANDIR_SORT_ASCENDING);
-                    //$files2 = scandir($dir, 1);
-                    //print_r($files1);
-                    //print_r($files2);
-                }
-                //$dir    = './js';
-                //$files1 = scandir($dir, SCANDIR_SORT_ASCENDING);
-                //print_r($files1);
-                ?>
 
                 <p><a href="https://github.com/dreboard" class="btn btn-primary">See Code &rarr;</a></p>
 

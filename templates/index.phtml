@@ -1,35 +1,10 @@
 <?php require_once __DIR__.'/inc/head.phtml'; ?>
 
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <div class="container">
-        <a class="navbar-brand" href="#">CDN Dev-PHP</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Home
-                <span class="sr-only">(current)</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="http://blog.dev-php.site">Blog</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="http://portfolio.dev-php.site">Portfolio</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="https://github.com/dreboard">Github</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <?php require_once __DIR__.'/inc/nav_main.phtml'; ?>
 
     <!-- Page Content -->
-    <div class="container">
+    <div class="container main">
 
       <div class="row">
 
@@ -39,15 +14,18 @@
           <h1 class="my-4">Dev-PHP
             <small>Content Delivery Network</small>
           </h1>
-
+<?php echo $_SERVER['HTTP_HOST']; ?>
+            <div class="">
+<?php var_dump($_SESSION); ?>
+            </div>
           <!-- Blog Post -->
           <div class="card mb-4">
-              <form class="form-signin" method="post" action="">
+              <form class="form-signin" method="post" action="http://localhost/_dev-php/cdn-home/public/login">
                   <h2 class="form-signin-heading">Please sign in</h2>
                   <label for="inputEmail" class="sr-only">Email address</label>
-                  <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+                  <input name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" autofocus>
                   <label for="inputPassword" class="sr-only">Password</label>
-                  <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                  <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password">
                   <div class="checkbox">
                       <label>
                           <input type="checkbox" value="remember-me"> Remember me
@@ -71,6 +49,11 @@
               Updated on January 1, 2017 by
               <a href="#">Dev-PHP</a>
             </div>
+              <div class="card-body">
+                  <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+                  <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+                  <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+              </div>
           </div>
 
 

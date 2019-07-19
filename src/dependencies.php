@@ -1,7 +1,7 @@
 <?php
 // DIC configuration
 
-$container = $app->getContainer();
+
 
 // view renderer
 $container['renderer'] = function ($c) {
@@ -17,3 +17,5 @@ $container['logger'] = function ($c) {
     $logger->pushHandler(new Monolog\Handler\StreamHandler($settings['path'], $settings['level']));
     return $logger;
 };
+
+
