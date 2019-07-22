@@ -10,7 +10,7 @@ Content Delivery System for all Dev-PHP sites.
 This application was built with the Slim Framework application quick and easy.
 
 ## Used
-* Slim v3 php micro framework.
+* Slim v3 php micro framework. (slim/view, php-di/slim-bridge, slim/twig-view, doctrine/orm)
 * Bootstrap 4.
 * Illuminate ORM
 
@@ -18,4 +18,3 @@ This application was built with the Slim Framework application quick and easy.
 
 [Home Page To CDN](http://cdn.dev-php.site/)
 * Guests can log in as guest/guest
-
